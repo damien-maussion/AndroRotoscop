@@ -1,9 +1,11 @@
 package com.example.damien.androrotoscop;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class DrawActivity extends Activity {
@@ -35,5 +37,10 @@ public class DrawActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void clickButtonSettings(View view) {
+        Intent i = new Intent(this, SettingsActivity.class);
+        startActivity(i);
     }
 }
