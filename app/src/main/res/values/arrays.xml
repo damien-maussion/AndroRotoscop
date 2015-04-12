@@ -1,0 +1,36 @@
+<resources>
+    <string-array name="spinner_nb_pelure">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="spinner_size">
+        <item>1</item>
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+    </string-array>
+
+    <string-array name="spinner_fps">
+        <item>1</item>
+        <item>6</item>
+        <item>8</item>
+        <item>12</item>
+        <item>24</item>
+    </string-array>
+
+    <string-array name="action_project">
+        <item>Ouvrir un projet</item>
+        <item>Nouveau projet</item>
+        <item>Exporter</item>
+        <item>Partager</item>
+        <item>Sauvegarder</item>
+        <item>Aperçu</item>
+        <item>Quitter</item>
+    </string-array>
+</resources>

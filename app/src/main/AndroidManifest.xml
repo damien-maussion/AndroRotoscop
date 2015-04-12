@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.damien.androrotoscop" >
+    package="com.example.damien.androrotoscop">
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:largeHeap="true">
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
@@ -19,13 +24,8 @@
         <activity
             android:name=".DrawActivity"
             android:label="@string/title_activity_draw"
-            android:screenOrientation="landscape" >
-        </activity>
-        <activity
-            android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:theme="@style/Theme.AppCompat.Dialog"
-            android:screenOrientation="landscape" >
+            android:screenOrientation="landscape"
+            android:theme="@style/FullscreenTheme" >
         </activity>
     </application>
 

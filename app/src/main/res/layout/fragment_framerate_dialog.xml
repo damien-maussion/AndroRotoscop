@@ -1,0 +1,47 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context="com.example.damien.androrotoscop.FramerateDialog"
+    android:gravity="center"
+    android:padding="5dp">
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Framerate:"
+        android:id="@+id/textView5"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerFPS"
+        android:entries="@array/spinner_fps"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/textView5"
+        android:layout_toEndOf="@+id/textView5" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Annuler"
+        android:id="@+id/FramerateButtonCancel"
+        android:clickable="true"
+        android:layout_below="@+id/spinnerFPS"
+        android:layout_alignRight="@+id/spinnerFPS"
+        android:layout_alignEnd="@+id/spinnerFPS" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ok"
+        android:id="@+id/FramerateButtonOK"
+        android:clickable="true"
+        android:layout_alignTop="@+id/FramerateButtonCancel"
+        android:layout_toLeftOf="@+id/FramerateButtonCancel"
+        android:layout_toStartOf="@+id/FramerateButtonCancel" />
+</RelativeLayout>
