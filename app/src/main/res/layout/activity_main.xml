@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Welcome in AndroRotoscop"
+        android:text="Bienvenue dans AndroRotoscop"
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -18,7 +18,7 @@
     <Button
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="New project"
+        android:text="Nouveau Projet"
         android:id="@+id/beginProject"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
@@ -27,7 +27,7 @@
     <Button
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="Open project"
+        android:text="Ouvrir un projet"
         android:id="@+id/button3"
         android:onClick="clickButtonOpenProject"
         android:layout_below="@+id/beginProject"

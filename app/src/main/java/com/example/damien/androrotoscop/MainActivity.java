@@ -97,6 +97,7 @@ public class MainActivity extends Activity {
             Intent i = new Intent(this, DrawActivity.class);
             i.putExtra(EXTRA_PROJECT_FILE_PATH, projectUri.toString());
             startActivity(i);
+            finish();
         //}
     }
 

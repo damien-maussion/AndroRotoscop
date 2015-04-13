@@ -143,14 +143,18 @@ public class DrawActivity extends Activity {
         buttonEraser = (ImageButton) findViewById(R.id.buttonEraser);
 
         actionsProject = (ListView) findViewById(R.id.listActionProject);
-
-        /*
-        Bitmap b = Bitmap.createBitmap(1200, 720, Bitmap.Config.ARGB_8888);
-        b.eraseColor(getResources().getColor(android.R.color.holo_blue_bright));
-        layers[4].setBackground(new BitmapDrawable(b));*/
-
-        //layers[4].setBackground(new BitmapDrawable(project.getImage(8)));
-
+        actionsProject.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String  itemValue = (String) actionsProject.getItemAtPosition(position);
+                switch (itemValue){
+                    case "Quitter":
+                        System.out.println("quitter");
+                        finish();
+                        break;
+                }
+            }
+        });
         goTo(0);
     }
 
