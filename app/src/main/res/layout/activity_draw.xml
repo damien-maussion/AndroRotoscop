@@ -162,7 +162,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Taille:"
             android:id="@+id/textView4"
             android:layout_alignBottom="@+id/spinnerSize"
@@ -177,7 +177,8 @@
             android:layout_toRightOf="@+id/textView4"
             android:layout_below="@+id/buttonEraser"
             android:layout_alignRight="@+id/buttonEraser"
-            android:entries="@array/spinner_size"/>
+            android:entries="@array/spinner_size"
+            android:visibility="visible" />
 
         <com.example.damien.androrotoscop.ColorPickerView
             android:id="@+id/color_picker_view"
@@ -202,14 +203,18 @@
 
 
     <ImageButton
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/buttonDrawingTools"
         android:layout_below="@+id/layoutTools"
         android:layout_centerHorizontal="true"
         android:background="@android:color/transparent"
         android:onClick="clickDrawingTools"
         android:visibility="visible"
-        android:src="@android:drawable/arrow_down_float" />
+        android:src="@android:drawable/arrow_down_float"
+        android:paddingLeft="15dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="30dp"
+        android:paddingTop="5dp" />
 
 </RelativeLayout>

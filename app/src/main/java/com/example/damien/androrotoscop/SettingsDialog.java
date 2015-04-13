@@ -17,7 +17,7 @@ import android.widget.Spinner;
 import com.example.damien.androrotoscop.R;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Dialog to change some settings (number of layers, display image from video...)
  * Activities that contain this fragment must implement the
  * {@link SettingsDialog.SettingsDialogListener} interface
  * to handle interaction events.

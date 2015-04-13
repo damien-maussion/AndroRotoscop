@@ -3,6 +3,7 @@ package com.example.damien.androrotoscop;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,25 +29,12 @@ public class MainActivity extends Activity {
         videoUri=Uri.parse("");
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        return super.onOptionsItemSelected(item);
-    }
-
+    /** Launch the capture of a video, the ask the framerate and launch the drawActivity
+     *
+     * @param view
+     */
     public void clickButtonNewProject(View view) {
+        /*
         FramerateDialog fd = FramerateDialog.newInstance(1);
         fd.setFramerateChangedListener(new FramerateDialog.FramerateChangedListener() {
             @Override
@@ -55,14 +43,18 @@ public class MainActivity extends Activity {
                 launchDraw();
             }
         });
-        fd.show(getFragmentManager(), "FPS");
-/*
+        fd.show(getFragmentManager(), "FPS");*/
+
         Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
         if (takeVideoIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
-        }*/
+        }
     }
 
+    /** Launch the file explorer to find the configuration file of a project then launch the drawActivity
+     *
+     * @param view
+     */
     public void clickButtonOpenProject(View view) {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("file/*");
@@ -70,6 +62,10 @@ public class MainActivity extends Activity {
     }
 
     @Override
+    /**
+     * Called when intent result is available (video or project config file)
+     * Open the drawActivity at the end
+     */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK){
             if (requestCode == REQUEST_VIDEO_CAPTURE) {
@@ -93,6 +89,9 @@ public class MainActivity extends Activity {
         }
     }
 
+    /**
+     * Launch the drawActivity
+     */
     public void launchDraw() {
         //if (Project.isValidProject(projectUri)) {
             Intent i = new Intent(this, DrawActivity.class);

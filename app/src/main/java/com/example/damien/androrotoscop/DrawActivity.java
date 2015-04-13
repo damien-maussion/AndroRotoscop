@@ -22,19 +22,35 @@ import android.widget.Spinner;
 
 import com.example.damien.androrotoscop.util.Project;
 
-
+/**
+ * Page de dessin
+ *
+ * Affiche les calques, l'image de la vidéo ainsi que la zone de dessin.
+ * Permet de modifier les outils de dessin et les paramètres.
+ */
 public class DrawActivity extends Activity {
 
+    //Maximum of layer
     public static int MAX_LAYER = 5;
 
+    //Frequence of layers
     private int pellures_freq;
+
+    //Number of layer displayed
     private int pellures_count;
+
+    //Area where the image of the video will be displayed
     private ImageView displayVid;
 
+    //Take true if the layers should be displayed
     private boolean displayLayers;
+
+    //Area where the layers are displayed
     private ImageView[] layers;
 
+    //The projet used
     private Project project;
+
     private int currentImage;
 
     private ImageButton previousButton;
@@ -49,6 +65,13 @@ public class DrawActivity extends Activity {
 
     private ListView actionsProject;
 
+    /** Create the activity
+     *
+     * Set attributes and listeners.
+     * Set images
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,7 +117,7 @@ public class DrawActivity extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 System.out.println(parent.getItemAtPosition(position).toString());
-                drawingView.setColor(Integer.parseInt(parent.getItemAtPosition(position).toString()));
+                drawingView.changeToolWidth(Integer.parseInt(parent.getItemAtPosition(position).toString()));
             }
 
             @Override
@@ -110,6 +133,7 @@ public class DrawActivity extends Activity {
         colorPickerView.setOnColorChangedListener(new ColorPickerView.OnColorChangedListener() {
             @Override
             public void onColorChanged(int color) {
+                clickPen(null);
                 drawingView.setColor(color);
             }
         });
@@ -130,30 +154,30 @@ public class DrawActivity extends Activity {
         goTo(0);
     }
 
+    /** Set the pen as tool
+     *
+     * @param view
+     */
     public void clickPen(View view){
         drawingView.setPen();
         buttonPen.setAlpha(1f);
         buttonEraser.setAlpha(.5f);
     }
 
+    /** Set the eraser as tool
+     *
+     * @param view
+     */
     public void clickEraser(View view){
         drawingView.setEraser();
         buttonPen.setAlpha(.5f);
         buttonEraser.setAlpha(1f);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_draw, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
-
+    /** Open a dialog to change some settings
+     *
+     * @param view
+     */
     public void clickButtonSettings(View view) {
         SettingsDialog sd = SettingsDialog.newInstance(pellures_freq, pellures_count,
                 displayVid.getVisibility()==View.VISIBLE,
@@ -173,6 +197,10 @@ public class DrawActivity extends Activity {
         sd.show(getFragmentManager(), "Settings");
     }
 
+    /** Change the number of layer and change the display
+     *
+     * @param pc : number of layer used
+     */
     private void setLayerCount(int pc) {
         if (pellures_count!=pc){
             pellures_count=pc;
@@ -180,6 +208,10 @@ public class DrawActivity extends Activity {
         }
     }
 
+    /** Change the frequence of layers and modify the images used by the array layer
+     *
+     * @param pf : the new frequence
+     */
     private void setLayerFrequence(int pf) {
         if (pellures_freq!=pf){
             pellures_freq = pf;
@@ -187,15 +219,15 @@ public class DrawActivity extends Activity {
         }
     }
 
+    /**
+     * Modify images in layer[] according to the frequence and the current image index
+     */
     private void changeLayers() {
         int i =MAX_LAYER-1;
         int imgIndex = currentImage-1;
         while (i>=0) {
             Bitmap b = project.getLayer(imgIndex);
-            System.out.println("dL"+i+" L"+imgIndex);
             if (imgIndex>=0 && b != null) {
-                System.out.println("imgIndex>=0 && b != null");
-                System.out.println("fetch dim"+ b.getWidth()+"-"+ b.getHeight());
                 layers[i].setImageBitmap(b);
             }
             else{
@@ -206,6 +238,9 @@ public class DrawActivity extends Activity {
         }
     }
 
+    /**
+     * Display layer as wanted (pellures_count or none)
+     */
     public void displayLayers(){
         int visibility = displayLayers ? View.VISIBLE : View.INVISIBLE;
         for (int i=MAX_LAYER-1; i>MAX_LAYER-1-pellures_count; i--){
@@ -216,49 +251,76 @@ public class DrawActivity extends Activity {
         }
     }
 
+    /** Change the display of the layers
+     *
+     * @param dL : true to display, false if not
+     */
     private void setDisplayLayer(boolean dL) {
         displayLayers = dL;
         displayLayers();
     }
 
+    /** Change the display of the image of the video
+     *
+     * @param dV : true to display, false if not
+     */
     private void setDisplayVideo(boolean dV) {
         int visibility = dV ? View.VISIBLE : View.INVISIBLE;
         displayVid.setVisibility(visibility);
     }
 
+    /** Move to the previous image
+     *
+     * @param view
+     */
     public void goPrevious(View view){
         goTo(currentImage-1);
     }
 
+    /** Move to next image
+     *
+     * @param view
+     */
     public void goNext(View view){
         goTo(currentImage+1);
     }
 
-    //TODO suppress Syso
+    /** Move to the image passed as parameter
+     *
+     * @param i : the new image index
+     */
     public void goTo(int i){
         if (i>=0 && i<project.getFrameCount() && currentImage!=i){
-System.out.println("add dim"+ drawingView.getBitmap().getWidth()+"-"+ drawingView.getBitmap().getHeight());
+
+            //save the drawing in project
             project.setLayer(currentImage, drawingView.getBitmap());
 
             currentImage = i;
 
+            //modify all displayed images
             displayVid.setBackground(new BitmapDrawable(project.getImage(currentImage)));
-            System.out.println("dV I" + currentImage);
             changeLayers();
             previousButton.setVisibility(currentImage == 0 ? View.GONE : View.VISIBLE);
             nextButton.setVisibility(currentImage == (project.getFrameCount() - 1) ? View.GONE : View.VISIBLE);
             navigationBar.setProgress(currentImage);
 
             drawingView.setBitmap(project.getLayer(currentImage));
-            System.out.println("drV L" + currentImage);
         }
     }
 
+    /** Toogle the visibility of the actions of the project (Save...)
+     *
+     * @param view
+     */
     public void displayActionsProject(View view){
         int visibility = (actionsProject.getVisibility()==View.VISIBLE) ? View.GONE : View.VISIBLE;
         actionsProject.setVisibility(visibility);
     }
 
+    /** Toogle the display of the drawing tools area
+     *
+     * @param view
+     */
     public void clickDrawingTools(View view){
         RelativeLayout l = (RelativeLayout) findViewById(R.id.layoutTools);
         ImageButton button = (ImageButton) findViewById(R.id.buttonDrawingTools);
