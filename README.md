@@ -1,0 +1,2 @@
+# AndroRotoscop
+Rotoscop for Android
